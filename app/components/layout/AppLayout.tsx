@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import ShiftSelector from "../calendar/ShiftSelector";
+
 interface AppLayoutProps {
   children: ReactNode;
 }
@@ -17,10 +19,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
       {/* 하단 근무 선택 버튼 영역 (나중에 구현) */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3">
-        <div className="flex justify-center gap-3">
-          {/* ShiftSelector 컴포넌트가 들어갈 자리 */}
-          <span className="text-gray-400 text-sm">근무 선택 버튼 영역</span>
-        </div>
+        <ShiftSelector />
       </nav>
     </div>
   );
