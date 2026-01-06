@@ -1,9 +1,15 @@
+import CalendarGrid from "~/components/calendar/CalendarGrid";
+import MonthNavigation from "~/components/calendar/MonthNavigation";
 import { AppLayout } from "~/components/layout/AppLayout";
+import { CalendarProvider } from "~/providers/CalendarProvider";
 
 export default function Home() {
   return (
-    <AppLayout>
-      <div className="text-center text-gray-500">캘린더가 들어갈 자리</div>
-    </AppLayout>
+    <CalendarProvider>
+      <AppLayout>
+        <MonthNavigation />
+        <CalendarGrid />
+      </AppLayout>
+    </CalendarProvider>
   );
 }
