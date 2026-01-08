@@ -37,6 +37,7 @@ export const CalendarProvider = ({ children }: CalendarProviderProps) => {
       goToPrevMonth: () => setCurrentDate((prev) => subMonths(prev, 1)),
       goToNextMonth: () => setCurrentDate((prev) => addMonths(prev, 1)),
       goToToday: () => setCurrentDate(new Date()),
+
       setDayShift: (date: Date, shift: ShiftType) => {
         const key = format(date, "yyyy-MM-dd");
         setSchedule((prev) => ({ ...prev, [key]: shift }));

@@ -8,6 +8,7 @@ import {
   startOfWeek,
 } from "date-fns";
 
+import { SHIFT_CONFIG } from "~/constants/shift";
 import { useCalendar } from "~/hooks/useCalendar";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -41,24 +42,43 @@ const CalendarGrid = () => {
 
       {/* 날짜 그리드 */}
       <div className="grid grid-cols-7 gap-1">
-        {days.map((day) => {
-          const isCurrentMonth = isSameMonth(day, currentDate);
-          const dayOfWeek = day.getDay();
-
-          return (
-            <div
-              key={day.toISOString()}
-              className={`
-                aspect-square flex items-center justify-center rounded-xl text-sm font-medium
-                ${!isCurrentMonth ? "text-gray-300" : dayOfWeek === 0 ? "text-red-400" : dayOfWeek === 6 ? "text-blue-400" : "text-gray-700"}
-                ${isCurrentMonth ? "bg-gray-100" : ""}
-            `}
-            >
-              {format(day, "d")}
-            </div>
-          );
-        })}
+        {days.map((day) => (
+          <DayItem
+            key={day.toISOString()}
+            day={day}
+            isCurrentMonth={isSameMonth(day, currentDate)}
+          />
+        ))}
       </div>
+    </div>
+  );
+};
+
+interface DayItemProps {
+  day: Date;
+  isCurrentMonth: boolean;
+}
+
+const DayItem = ({ day, isCurrentMonth }: DayItemProps) => {
+  const { schedule, selectedShift, setDayShift } = useCalendar();
+
+  const dateKey = format(day, "yyyy-MM-dd");
+  const shift = schedule[dateKey];
+  const shiftConfig = shift ? SHIFT_CONFIG[shift] : null;
+
+  const dayOfWeek = day.getDay();
+
+  return (
+    <div
+      onClick={() => setDayShift(day, selectedShift)}
+      className={`
+          aspect-square flex items-center justify-center rounded-xl text-sm font-medium
+          ${!isCurrentMonth ? "text-gray-300" : dayOfWeek === 0 ? "text-red-400" : dayOfWeek === 6 ? "text-blue-400" : "text-gray-700"}
+          ${isCurrentMonth ? "bg-gray-100" : ""}
+          ${shiftConfig ? `${shiftConfig.color} ${shiftConfig.textColor} shadow-md` : ""}
+      `}
+    >
+      {format(day, "d")}
     </div>
   );
 };
