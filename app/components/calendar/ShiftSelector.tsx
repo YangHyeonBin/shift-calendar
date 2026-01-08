@@ -27,7 +27,7 @@ const ShiftSelector = () => {
           onClick={handleClear}
           disabled={scheduleCount === 0}
           className={`
-            px-3 py-1.5 rounded-lg font-medium text-xs
+            px-3 py-2 rounded-lg font-medium text-xs
             transition-all duration-200 active:scale-95
             ${
               scheduleCount > 0
@@ -43,7 +43,7 @@ const ShiftSelector = () => {
           onClick={handleSave}
           disabled={scheduleCount === 0}
           className={`
-            px-4 py-1.5 rounded-lg font-medium text-xs
+            px-4 py-2 rounded-lg font-medium text-xs
             transition-all duration-200 active:scale-95
             ${
               scheduleCount > 0
