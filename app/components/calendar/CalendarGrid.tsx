@@ -10,11 +10,13 @@ import {
 
 import { SHIFT_CONFIG } from "~/constants/shift";
 import { useCalendar } from "~/hooks/useCalendar";
+import { useSwipePaint } from "~/hooks/useSwipePaint";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
 const CalendarGrid = () => {
   const { currentDate } = useCalendar();
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipePaint();
 
   //   해당 월 캘린더에 표시할 모든 날짜 계산
   const monthStart = startOfMonth(currentDate);
@@ -41,7 +43,12 @@ const CalendarGrid = () => {
       </div>
 
       {/* 날짜 그리드 */}
-      <div className="grid grid-cols-7 gap-1">
+      <div
+        className="grid grid-cols-7 gap-1 touch-none" // 스와이프 동작을 위해 스크롤 등 터치 액션 막음
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {days.map((day) => (
           <DayItem
             key={format(day, "yyyy-MM-dd")}
@@ -60,7 +67,7 @@ interface DayItemProps {
 }
 
 const DayItem = ({ day, isCurrentMonth }: DayItemProps) => {
-  const { schedule, selectedShift, setDayShift } = useCalendar();
+  const { schedule } = useCalendar();
 
   const dateKey = format(day, "yyyy-MM-dd");
   const shift = schedule[dateKey];
@@ -70,9 +77,10 @@ const DayItem = ({ day, isCurrentMonth }: DayItemProps) => {
 
   return (
     <div
-      onClick={() => setDayShift(day, selectedShift)}
+      data-date={dateKey}
       className={`
           aspect-square flex items-center justify-center rounded-xl text-sm font-medium
+          select-none
           ${!isCurrentMonth ? "text-gray-300" : dayOfWeek === 0 ? "text-red-400" : dayOfWeek === 6 ? "text-blue-400" : "text-gray-700"}
           ${isCurrentMonth ? "bg-gray-100" : ""}
           ${shiftConfig ? `${shiftConfig.color} ${shiftConfig.textColor} shadow-md` : ""}
