@@ -59,7 +59,7 @@ const CalendarGrid = () => {
 
   const handleTouchMove = (e: TouchEvent) => {
     if (!isDrawing) return;
-    e.preventDefault();
+    // e.preventDefault();
 
     const touch = e.touches[0];
     const dateKey = getDateFromPoint(touch.clientX, touch.clientY);
@@ -96,7 +96,7 @@ const CalendarGrid = () => {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ touchAction: "auto" }}
+        style={{ touchAction: "none" }} // 스와이프 동작을 위해 스크롤 등 터치 액션 막음
       >
         {days.map((day) => (
           <DayItem
@@ -126,9 +126,11 @@ const DayItem = ({ day, isCurrentMonth }: DayItemProps) => {
 
   return (
     <div
+      data-date={dateKey}
       onClick={() => setDayShift(day, selectedShift)}
       className={`
           aspect-square flex items-center justify-center rounded-xl text-sm font-medium
+          select-none
           ${!isCurrentMonth ? "text-gray-300" : dayOfWeek === 0 ? "text-red-400" : dayOfWeek === 6 ? "text-blue-400" : "text-gray-700"}
           ${isCurrentMonth ? "bg-gray-100" : ""}
           ${shiftConfig ? `${shiftConfig.color} ${shiftConfig.textColor} shadow-md` : ""}
