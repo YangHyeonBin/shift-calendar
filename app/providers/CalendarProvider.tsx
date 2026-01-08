@@ -40,7 +40,16 @@ export const CalendarProvider = ({ children }: CalendarProviderProps) => {
 
       setDayShift: (date: Date, shift: ShiftType) => {
         const key = format(date, "yyyy-MM-dd");
-        setSchedule((prev) => ({ ...prev, [key]: shift }));
+        setSchedule((prev) => {
+          // 이미 존재하면 토글
+          if (prev[key] === shift) {
+            const newSchedule = { ...prev };
+            delete newSchedule[key];
+            return newSchedule;
+          }
+
+          return { ...prev, [key]: shift };
+        });
       },
       clearSchedule: () => setSchedule({}),
     }),

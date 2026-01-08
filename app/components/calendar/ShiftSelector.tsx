@@ -20,6 +20,7 @@ const ShiftSelector = () => {
           return (
             <button
               key={shiftType}
+              type="button"
               onClick={() => setSelectedShift(shiftType)}
               className={`
                 ${config.color} ${config.textColor}

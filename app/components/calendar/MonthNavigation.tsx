@@ -8,7 +8,12 @@ const MonthNavigation = () => {
 
   return (
     <div className="flex items-center justify-between mb-4">
-      <button onClick={goToPrevMonth} className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+      <button
+        type="button"
+        onClick={goToPrevMonth}
+        className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+        aria-label="이전 달"
+      >
         ←
       </button>
 
@@ -18,14 +23,20 @@ const MonthNavigation = () => {
         </h2>
 
         <button
+          type="button"
           onClick={goToToday}
-          className="text-cs bg-gray-100 px-2 py-1 rounded-md text-gray-600 hover:bg-gray-200"
+          className="text-xs bg-gray-100 px-2 py-1 rounded-md text-gray-600 hover:bg-gray-200"
         >
           오늘
         </button>
       </div>
 
-      <button onClick={goToNextMonth} className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+      <button
+        type="button"
+        onClick={goToNextMonth}
+        className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+        aria-label="다음 달"
+      >
         →
       </button>
     </div>

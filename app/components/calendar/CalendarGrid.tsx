@@ -44,7 +44,7 @@ const CalendarGrid = () => {
       <div className="grid grid-cols-7 gap-1">
         {days.map((day) => (
           <DayItem
-            key={day.toISOString()}
+            key={format(day, "yyyy-MM-dd")}
             day={day}
             isCurrentMonth={isSameMonth(day, currentDate)}
           />
