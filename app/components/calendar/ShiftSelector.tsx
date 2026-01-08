@@ -2,12 +2,60 @@ import { SHIFT_CONFIG, SHIFT_TYPES } from "~/constants/shift";
 import { useCalendar } from "~/hooks/useCalendar";
 
 const ShiftSelector = () => {
-  const { selectedShift, setSelectedShift, schedule } = useCalendar();
+  const { selectedShift, setSelectedShift, schedule, clearSchedule } = useCalendar();
 
   const scheduleCount = Object.keys(schedule).length;
 
+  const handleSave = () => {
+    // TODO: DB 연동 후 구현
+    alert(`근무 스케줄 등록 완료 (${scheduleCount}일)`);
+  };
+
+  const handleClear = () => {
+    if (scheduleCount === 0) return;
+    if (confirm("입력한 스케줄을 모두 초기화할까요?")) {
+      clearSchedule();
+    }
+  };
+
   return (
     <div className="bg-white p-4 shadow-sm">
+      {/* 액션 버튼 */}
+      <div className="flex justify-end gap-2 mb-3">
+        <button
+          type="button"
+          onClick={handleClear}
+          disabled={scheduleCount === 0}
+          className={`
+            px-3 py-1.5 rounded-lg font-medium text-xs
+            transition-all duration-200 active:scale-95
+            ${
+              scheduleCount > 0
+                ? "bg-gray-200 text-gray-700"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+        >
+          초기화
+        </button>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={scheduleCount === 0}
+          className={`
+            px-4 py-1.5 rounded-lg font-medium text-xs
+            transition-all duration-200 active:scale-95
+            ${
+              scheduleCount > 0
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+        >
+          저장
+        </button>
+      </div>
+
+      {/* 근무 선택 */}
       <div className="text-sm font-medium text-gray-700 mb-2">
         근무 선택 {scheduleCount > 0 && `· ${scheduleCount}일 입력됨`}
       </div>
