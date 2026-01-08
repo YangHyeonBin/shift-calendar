@@ -44,11 +44,10 @@ const CalendarGrid = () => {
 
       {/* 날짜 그리드 */}
       <div
-        className="grid grid-cols-7 gap-1"
+        className="grid grid-cols-7 gap-1 touch-none" // 스와이프 동작을 위해 스크롤 등 터치 액션 막음
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ touchAction: "none" }} // 스와이프 동작을 위해 스크롤 등 터치 액션 막음
       >
         {days.map((day) => (
           <DayItem

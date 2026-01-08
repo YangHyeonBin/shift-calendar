@@ -18,6 +18,11 @@ const ShiftSelector = () => {
     }
   };
 
+  // 버튼 스타일 관련
+  const disabledClasses = "bg-gray-100 text-gray-400 cursor-not-allowed";
+  const commonClasses =
+    "py-2 rounded-lg font-medium text-xs transition-all duration-200 active:scale-95";
+
   return (
     <div className="bg-white p-4 shadow-sm">
       {/* 액션 버튼 */}
@@ -27,13 +32,8 @@ const ShiftSelector = () => {
           onClick={handleClear}
           disabled={scheduleCount === 0}
           className={`
-            px-3 py-2 rounded-lg font-medium text-xs
-            transition-all duration-200 active:scale-95
-            ${
-              scheduleCount > 0
-                ? "bg-gray-200 text-gray-700"
-                : "bg-gray-100 text-gray-400 cursor-not-allowed"
-            }`}
+            px-3 ${commonClasses}
+            ${scheduleCount > 0 ? "bg-gray-200 text-gray-700" : disabledClasses}`}
         >
           초기화
         </button>
@@ -43,13 +43,8 @@ const ShiftSelector = () => {
           onClick={handleSave}
           disabled={scheduleCount === 0}
           className={`
-            px-4 py-2 rounded-lg font-medium text-xs
-            transition-all duration-200 active:scale-95
-            ${
-              scheduleCount > 0
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-400 cursor-not-allowed"
-            }`}
+            px-4 ${commonClasses}
+            ${scheduleCount > 0 ? "bg-blue-600 text-white" : disabledClasses}`}
         >
           저장
         </button>

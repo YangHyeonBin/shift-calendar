@@ -32,7 +32,7 @@ export const useSwipePaint = () => {
 
     if (dateKey) {
       setIsDrawing(true);
-      touchedDates.current = new Set();
+      touchedDates.current.clear();
       applyShift(dateKey);
     }
   };
