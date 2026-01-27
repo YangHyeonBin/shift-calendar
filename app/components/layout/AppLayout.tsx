@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import ShiftSelector from "../calendar/ShiftSelector";
+import Header from "./Header";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -10,9 +11,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* 헤더 */}
-      <header className="bg-white shadow-sm px-4 py-3">
-        <h1 className="text-lg font-semibold text-gray-900">Shift Calendar</h1>
-      </header>
+      <Header />
 
       {/* 메인 컨텐츠 */}
       <main className="flex-1 p-4 pb-24">{children}</main>
