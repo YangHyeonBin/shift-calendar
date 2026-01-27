@@ -19,13 +19,17 @@ const AuthCallback = () => {
         return;
       }
 
-      if (!code) {
-        setError("인증 코드가 없습니다.");
+      // state 검증
+      const savedState = sessionStorage.getItem("naver_oauth_state");
+      sessionStorage.removeItem("naver_oauth_state"); // 사용 후 삭제
+
+      if (!state || state !== savedState) {
+        setError("잘못된 요청입니다. 다시 로그인해주세요.");
         return;
       }
 
-      if (!state) {
-        console.warn("State가 없습니다!");
+      if (!code) {
+        setError("인증 코드가 없습니다.");
         return;
       }
 
