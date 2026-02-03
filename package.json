@@ -9,7 +9,8 @@
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate-supabase-types": "supabase gen types typescript --linked > app/types/database.types.ts"
   },
   "dependencies": {
     "@react-router/node": "7.10.1",
