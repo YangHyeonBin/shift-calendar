@@ -1,8 +1,8 @@
 import { createContext, useMemo, useState, type ReactNode } from "react";
 import { addMonths, format, subMonths } from "date-fns";
 
-import { SHIFT_TYPES, type ShiftType } from "~/constants/shift";
-import type { Schedule } from "~/types/calendarTypes";
+import { DEFAULT_SHIFT_TYPES } from "~/constants/shift";
+import type { ScheduleMap, ShiftType } from "~/types/calendarTypes";
 
 interface CalendarContextType {
   // 월 네비게이션
@@ -16,7 +16,7 @@ interface CalendarContextType {
   setSelectedShift: (shift: ShiftType) => void;
 
   // 스케줄 관리
-  schedule: Schedule;
+  schedule: ScheduleMap;
   setDayShift: (date: Date, shift: ShiftType) => void;
   clearSchedule: () => void;
 }
@@ -29,8 +29,8 @@ interface CalendarProviderProps {
 
 export const CalendarProvider = ({ children }: CalendarProviderProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedShift, setSelectedShift] = useState<ShiftType>(SHIFT_TYPES.DAY);
-  const [schedule, setSchedule] = useState<Schedule>({});
+  const [selectedShift, setSelectedShift] = useState<ShiftType>(DEFAULT_SHIFT_TYPES.DAY); // TODO: 사용자 기본값 중 선택
+  const [schedule, setSchedule] = useState<ScheduleMap>({});
 
   const actions = useMemo(
     () => ({
@@ -42,13 +42,13 @@ export const CalendarProvider = ({ children }: CalendarProviderProps) => {
         const key = format(date, "yyyy-MM-dd");
         setSchedule((prev) => {
           // 이미 존재하면 토글
-          if (prev[key] === shift) {
+          if (prev[key]?.shiftType === shift) {
             const newSchedule = { ...prev };
             delete newSchedule[key];
             return newSchedule;
           }
 
-          return { ...prev, [key]: shift };
+          return { ...prev, [key]: { shiftType: shift, status: "pending" } };
         });
       },
       clearSchedule: () => setSchedule({}),

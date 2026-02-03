@@ -1,4 +1,4 @@
-import { SHIFT_CONFIG, SHIFT_TYPES } from "~/constants/shift";
+import { DEFAULT_SHIFT_CONFIG, DEFAULT_SHIFT_TYPES } from "~/constants/shift";
 import { useCalendar } from "~/hooks/useCalendar";
 
 const ShiftSelector = () => {
@@ -56,8 +56,8 @@ const ShiftSelector = () => {
       </div>
 
       <div className="grid grid-cols-4 gap-2">
-        {Object.values(SHIFT_TYPES).map((shiftType) => {
-          const config = SHIFT_CONFIG[shiftType];
+        {Object.values(DEFAULT_SHIFT_TYPES).map((shiftType) => {
+          const config = DEFAULT_SHIFT_CONFIG[shiftType];
           const isSelected = selectedShift === shiftType;
 
           return (
@@ -73,7 +73,7 @@ const ShiftSelector = () => {
                 ${isSelected ? "ring-4 ring-blue-400 scale-105" : "ring-2 ring-gray-200"}
             `}
             >
-              <span className="text-xs">{config.label}</span>
+              <span className="text-xs">{config.name}</span>
             </button>
           );
         })}

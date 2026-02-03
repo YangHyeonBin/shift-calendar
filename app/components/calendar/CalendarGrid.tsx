@@ -8,7 +8,7 @@ import {
   startOfWeek,
 } from "date-fns";
 
-import { SHIFT_CONFIG } from "~/constants/shift";
+import { DEFAULT_SHIFT_CONFIG } from "~/constants/shift";
 import { useCalendar } from "~/hooks/useCalendar";
 import { useSwipePaint } from "~/hooks/useSwipePaint";
 
@@ -70,8 +70,8 @@ const DayItem = ({ day, isCurrentMonth }: DayItemProps) => {
   const { schedule } = useCalendar();
 
   const dateKey = format(day, "yyyy-MM-dd");
-  const shift = schedule[dateKey];
-  const shiftConfig = shift ? SHIFT_CONFIG[shift] : null;
+  const shiftEntry = schedule[dateKey];
+  const shiftConfig = shiftEntry?.shiftType ? DEFAULT_SHIFT_CONFIG[shiftEntry.shiftType] : null;
 
   const dayOfWeek = day.getDay();
 
